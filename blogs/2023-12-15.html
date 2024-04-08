@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Include your local styles -->
+    <link rel="stylesheet" href="/styles.css" />
+    <!-- Include your boxicons.min.css or other CSS files -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+    />
+  </head>
+  <section class="about_home" id="home">
+    <body>
+      <header>
+        <div id="navbar"></div>
+        <script src="/navbar.js"></script>
+      </header>
+      <main>
+        <article>
+          <h2 class="blog_title"></h2>
+          <hr />
+          <p class="blog_date_info">
+            Published on <time></time> by
+            <span><a href="/about">Kevin Zarate</a></span>
+          </p>
+
+          <p class="blog_content">
+            Since I am a little monkey, I have decided to self-host an instance
+            of Firefox Send. I can finally send all ungodly large files over a
+            file host that doesn't suck (Unless my internet dies, but I don't
+            control that; Comcast's shitty internet does). The instance can be
+            found at
+            <a class="links" href="https://send.kevinzarate.dev"
+              >send.kevinzarate.dev</a
+            >
+          </p>
+          <img
+          src="/blogs/images/send_subdomain_screenshot.png"
+          alt=""
+          class="blog_photo"
+        />
+          <p class="blog_content">
+            So, I have the file limit set to 10 gigabytes (10,737,418,240 bytes
+            to be exact) because I needed to send a friend of mine a windows ISO
+            after accidentally nuking his C: drive. I thought it'd be a nice
+            public service for the three people that ever find this site along
+            with being a quick way to send files back to myself from school. Any
+            file have a one month time limit because I would like to keep my 22
+            terabyte drive stuffed to the brim with Linux ISOS.
+          </p>
+        </article>
+      </main>
+      <footer></footer>
+      <noscript>
+        <img
+          src="https://analytics.kevinzarate.dev/ingress/96975602-1139-408c-9b90-cee54fac39db/pixel.gif"
+        />
+      </noscript>
+      <script
+        defer
+        src="https://analytics.kevinzarate.dev/ingress/96975602-1139-408c-9b90-cee54fac39db/script.js"
+      ></script>
+
+      <!-- Include the script here -->
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          fetch("/blogs/blog-posts.json") // JSON file path
+            .then((response) => response.json())
+            .then((data) => {
+              // Assuming you want to display the first blog post from the JSON
+              const blogPost = data[0];
+
+              // Fill the template blog page with data from the JSON
+              document.title = blogPost.date;
+              document.querySelector(".blog_title").innerText = blogPost.title;
+              document.querySelector(".blog_date_info time").innerText =
+                blogPost.date;
+              document.querySelector(".blog_content:first-of-type").innerText =
+                blogPost.content;
+              document.querySelector(".blog_thumbnail").src = blogPost.image;
+            })
+            .catch((error) =>
+              console.error("Error fetching blog data:", error)
+            );
+        });
+      </script>
+    </body>
+  </section>
+</html>

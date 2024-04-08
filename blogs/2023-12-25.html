@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Include your local styles -->
+    <link rel="stylesheet" href="/styles.css" />
+    <!-- Include your boxicons.min.css or other CSS files -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+    />
+  </head>
+  <section class="about_home" id="home">
+    <body>
+      <header>
+        <div id="navbar"></div>
+        <script src="/navbar.js"></script>
+      </header>
+      <main>
+        <article>
+          <h2 class="blog_title"></h2>
+          <hr />
+          <p class="blog_date_info">
+            Published on <time></time> by
+            <span><a href="/about">Kevin Zarate</a></span>
+          </p>
+
+          <p class="blog_content">
+            So, I really hate Xfinity's gateway that they provided my family. I
+            can't set up VLANs and setting up port forwards requires logging
+            into the Xfinity Home app. Why they decided to make it a hassle when
+            every other router doesn't need this is beyond me. Worst of all was
+            the lack of support for NAT hairpinning and setting a custom DNS
+            server. What that means is that I can't access my services using the
+            external IP and god forbid I set up PiHole to redirect them to the
+            internal IP. Needless to say, I was not a fan of being minorly
+            inconvenienced by a decade old modem/router combo that Xfinity
+            doesn't even support anymore and costing my family $14/month (Yes, I
+            am a very good complainer).
+          </p>
+          <div class="blog_image_caption">
+            <img
+              src="/blogs/images/2023-12-25/20231225_021023_Lmc r17 X Srihari(Boosted Colors).jpg"
+              alt=""
+              class="blog_photo"
+            />
+            <p class="caption">
+              The Old Gateway That I've Been Complaining About…
+            </p>
+          </div>
+
+          <p class="blog_content">
+            Say goodbye to ninety dollars and a random night of setting this up,
+            but it's time to replace the gateway with a Netgear CM1150V modem
+            and pair it a Asus RT-AC68U router.
+          </p>
+          <div class="blog_image_caption">
+            <img
+              src="/blogs/images/2023-12-25/20231225_030737_Lmc r17 X Srihari(Boosted Colors).jpg"
+              alt=""
+              class="blog_photo"
+            />
+            <img
+              src="/blogs/images/2023-12-25/2023-12-27_23-08.png"
+              alt=""
+              class="blog_photo"
+            />
+            <p class="caption">Worth it</p>
+          </div>
+          <p class="blog_content">
+            I just ended up unplugging cables from the old modem/router gateway
+            thingy and plugged them all (Coax, ethernet, and phone) into the
+            modem. Then I had to go into the Xfinity app and type in the MAC
+            address of the CM1150V and wait like 15 minutes for it work. I had
+            to connect my laptop to it by ethernet to make sure it was set up
+            but that meant it was time to router setting up.
+          </p>
+          <img
+            src="/blogs/images/2023-12-25/20231225_031516_Lmc r17 X Srihari(Boosted Colors).jpg"
+            alt=""
+            class="blog_photo"
+          />
+          <img
+            src="/blogs/images/2023-12-25/Screenshot_20231225-031935_Xfinity.png"
+            alt=""
+            class="blog_photo"
+          />
+          <p class="blog_content">
+            I'm not going to get into the setting up of the AC68U router. There
+            are plenty of generic guides on YouTube on how to do that and this
+            really wasn't anything special. The modem was plug and play besides
+            the ISP app demanding the MAC, but the router was pretty standard. I
+            kept the SSID and password the same was it was before so that
+            devices would reconnect.
+          </p>
+          <div class="blog_image_caption">
+            <img
+              src="/blogs/images/2023-12-25/20231225_061613_Lmc r17 X Srihari(Boosted Colors).jpg"
+              alt=""
+              class="blog_photo"
+            />
+            <p class="caption">Ignore the ✨poverty aesthetic✨</p>
+          </div>
+          <p class="blog_content">
+            I'm not going to get into the setting up of the AC68U router. There
+            are plenty of generic guides on YouTube on how to do that and this
+            really wasn't anything special. The modem was plug and play besides
+            the ISP app demanding the MAC, but the router was pretty standard. I
+            kept the SSID and password the same was it was before so that
+            devices would reconnect.
+          </p>
+          <div class="blog_image_caption">
+            <img
+              src="/blogs/images/2023-12-25/20231225_062224_Lmc r17 X Srihari(Boosted Colors).jpg"
+              alt=""
+              class="blog_photo"
+            />
+            <p class="caption">The End Result</p>
+          </div>
+          <p class="blog_content">
+            Conclusion: Upgrading your home network by replacing the Xfinity
+            gateway with your own used hardware is worth it. Wasn't able to find
+            the VLAN settings, but I was able to set up an instance of Adguard
+            Home for a DNS-based adblocking. Kinda fun to get working, it should
+            pay for itself in about a year.
+            <a
+              class="links"
+              href="https://forums.xfinity.com/conversations/your-home-network/your-isps-dhcp-is-not-functioning-properly-asus-rtac68u-router/60acee2e0114d32d27cf85ec"
+              >I am going to dump this Xfinity forum link because Asus routers don't like working with Xfinity.
+            </a> It probably works, I did a factory reset and update and thats when the router managed to get internet. I'm not entirely sure since 
+          </p>
+        </article>
+      </main>
+      <footer></footer>
+      <noscript>
+        <img
+          src="https://analytics.kevinzarate.dev/ingress/96975602-1139-408c-9b90-cee54fac39db/pixel.gif"
+        />
+      </noscript>
+      <script
+        defer
+        src="https://analytics.kevinzarate.dev/ingress/96975602-1139-408c-9b90-cee54fac39db/script.js"
+      ></script>
+
+      <!-- Include the script here -->
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          fetch("/blogs/blog-posts.json") // JSON file path
+            .then((response) => response.json())
+            .then((data) => {
+              // Assuming you want to display the first blog post from the JSON
+              const blogPost = data[0];
+
+              // Fill the template blog page with data from the JSON
+              document.title = blogPost.date;
+              document.querySelector(".blog_title").innerText = blogPost.title;
+              document.querySelector(".blog_date_info time").innerText =
+                blogPost.date;
+              document.querySelector(".blog_content:first-of-type").innerText =
+                blogPost.content;
+              document.querySelector(".blog_thumbnail").src = blogPost.image;
+            })
+            .catch((error) =>
+              console.error("Error fetching blog data:", error)
+            );
+        });
+      </script>
+    </body>
+  </section>
+</html>

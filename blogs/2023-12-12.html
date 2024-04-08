@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Include your local styles -->
+    <link rel="stylesheet" href="/styles.css" />
+    <!-- Include your boxicons.min.css or other CSS files -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+    />
+  </head>
+  <section class="about_home" id="home">
+    <body>
+      <header>
+        <div id="navbar"></div>
+        <script src="/navbar.js"></script>
+      </header>
+      <main>
+        <article>
+          <h2 class="blog_title"></h2>
+          <hr />
+          <p class="blog_date_info">
+            Published on <time></time> by
+            <span><a href="/about">Kevin Zarate</a></span>
+          </p>
+
+          <p class="blog_content">
+            Well, I did it. This abstrate art of a website is finally mirrored
+            on an .Onion link.
+            <a
+              class="links"
+              href="http://kevinz262ixkjftrzctkfcyiyzaaft3oyfiesbyt6aof3nushp72hbad.onion/"
+              >Click me!</a
+            >
+            However, I guess anyone actually interested in reading this
+            anonymously should use the Tor browser, so
+            <a class="links" href="https://www.torproject.org/download/"
+              >I'll link that too.</a
+            >
+          </p>
+
+          <p class="blog_content">
+            Tor connects to .onion links bouncing around encrypted pathways.
+            When a user accesses a .onion link through the Tor network, the
+            request travels through multiple volunteer-operated relays,
+            encrypting and redirecting the traffic. This process helps in
+            preserving anonymity by preventing direct tracing of the user's IP
+            address.
+          </p>
+
+          <img
+            src="/blogs/images/How_Tor_Works_3.png"
+            alt=""
+            class="blog_photo"
+          />
+          <!--link to fancy code-->
+          <p class="blog_content">
+            Since I love docker, I just slapped tor onto my docker-compose.yml
+            that hosts this website (and my reverse proxy).
+          </p>
+          <p class="blog_content"></p>
+          <pre><code>
+              version: "3.8"
+services:
+  nginx-proxy-manager:
+    image: jc21/nginx-proxy-manager:latest
+    restart: unless-stopped
+    ports:
+      - 80:80 # Public HTTP Port
+      - 443:443 # Public HTTPS Port
+      - 81:81 # Admin Web Port
+    container_name: nginx
+    volumes:
+      - /home/kevin/docker-data/Nginx-Proxy/data:/data
+      - /home/kevin/docker-data/Nginx-Proxy:/config
+      - /home/kevin/docker-data/Nginx-Proxy/letsencrypt:/etc/letsencrypt
+    networks: []
+    environment:
+      - TZ=America/New_York # Remove the space around '=' in environment variables
+  static-web-server:
+    image: joseluisq/static-web-server:2-alpine
+    volumes:
+      - /home/kevin/KevvyWebsite/Kevvy Site.html:/public/index.html:ro
+      - /home/kevin/KevvyWebsite:/public:ro
+    ports:
+      - 8080:80
+    restart: unless-stopped
+    container_name: static-web-server
+  tor:
+    container_name: tor
+    image: dockurr/tor:latest
+    # user: 100:65533
+    ports:
+      - 9050:9050
+      - 9051:9051
+    restart: always
+    depends_on:
+      - static-web-server
+    stop_grace_period: 1m
+    volumes:
+      - /home/kevin/docker-data/tor/torrc:/etc/tor/torrc
+      - /home/kevin/docker-data/tor/hidden_service:/var/lib/tor/hidden_service
+networks:
+  internal: {}
+            </code></pre>
+          <p class="blog_content">
+            In this Docker setup: "nginx-proxy-manager" manages a reverse proxy
+            for web traffic. static-web-server hosts static web content (this
+            website, because I couldn't figure out nginx). tor hosts a hidden
+            service as specified in the /etc/torrc file. I made tor depend on
+            static-web-server because the torrc file has the ip of the .onion
+            site be the ip of static-web-server. If it's down, then there's no
+            point in the .onion mirror.
+          </p>
+          <p class="blog_content"></p>
+          <pre><code>
+############### This section is just for location-hidden services ###
+
+## Once you have configured a hidden service, you can look at the
+## contents of the file ".../hidden_service/hostname" for the address
+## to tell people.
+##
+## HiddenServicePort x y:z says to redirect requests on port x to the
+## address y:z.
+
+HiddenServiceDir /var/lib/tor/hidden_service/
+HiddenServicePort 80 static-web-server:80
+            </code></pre>
+          <p class="blog_content">
+            I used <a href="https://github.com/cathugger/mkp224o">mkp224o</a> to
+            generate a vanity url and then mounted a folder as
+            /var/lib/tor/hidden_service so I could keep the same url after
+            restarting the container and use a custom one at the same time. The
+            volumes section is where I keep my config files persistent.
+          </p>
+          <p class="blog_content">
+            Enough about that, I also make a .json file of some basic blog
+            metadata and constantly refer back to it for certain elements like
+            name and creation date. I'm just really proud of myself after being
+            told I could do that and then doing that.
+          </p>
+          <p class="blog_content">
+            I still hate working with Javascript, but I can force it to work.
+          </p>
+        </article>
+      </main>
+      <footer></footer>
+      <noscript>
+        <img
+          src="https://analytics.kevinzarate.dev/ingress/96975602-1139-408c-9b90-cee54fac39db/pixel.gif"
+        />
+      </noscript>
+      <script
+        defer
+        src="https://analytics.kevinzarate.dev/ingress/96975602-1139-408c-9b90-cee54fac39db/script.js"
+      ></script>
+
+      <!-- Include the script here -->
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          fetch("/blogs/blog-posts.json") // JSON file path
+            .then((response) => response.json())
+            .then((data) => {
+              // Assuming you want to display the first blog post from the JSON
+              const blogPost = data[0];
+
+              // Fill the template blog page with data from the JSON
+              document.title = blogPost.date;
+              document.querySelector(".blog_title").innerText = blogPost.title;
+              document.querySelector(".blog_date_info time").innerText =
+                blogPost.date;
+              document.querySelector(".blog_content:first-of-type").innerText =
+                blogPost.content;
+              document.querySelector(".blog_thumbnail").src = blogPost.image;
+            })
+            .catch((error) =>
+              console.error("Error fetching blog data:", error)
+            );
+        });
+      </script>
+    </body>
+  </section>
+</html>
